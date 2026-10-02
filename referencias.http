@@ -1,0 +1,110 @@
+@base = http://localhost:3000
+
+### Login com sucesso
+# @name login
+POST {{base}}/login
+Content-Type: application/json
+
+{
+    "email": "ana@consultorio.com",
+    "senha": "123456"
+}
+
+### Login que falha (senha incorreta)
+POST {{base}}/login
+Content-Type: application/json
+
+{
+    "email": "ana@consultorio.com",
+    "senha": "senhaerrada"
+}
+
+### Login sem senha (campo obrigatório ausente)
+POST {{base}}/login
+Content-Type: application/json
+
+{
+    "email": "ana@consultorio.com"
+}
+
+### Cadastrar dentista
+POST {{base}}/dentistas
+Authorization: Bearer {{login.response.body.token}}
+Content-Type: application/json
+
+{
+    "nome": "Ricardo Nunes",
+    "cro": "CRO-SC 11111",
+    "especialidade": "Periodontia",
+    "telefone": "(48) 98888-4040",
+    "email": "ricardo.nunes@consultorio.com"
+}
+
+### Listar todos os dentistas
+GET {{base}}/dentistas
+Authorization: Bearer {{login.response.body.token}}
+
+### Buscar dentistas por termo (nome, CRO ou especialidade)
+GET {{base}}/dentistas?termo=ortodontia
+Authorization: Bearer {{login.response.body.token}}
+
+### Cadastrar cliente (dentista_id precisa existir)
+POST {{base}}/clientes
+Authorization: Bearer {{login.response.body.token}}
+Content-Type: application/json
+
+{
+    "nome": "Lucia Ferreira",
+    "cpf": "153.509.460-56",
+    "telefone": "(11) 97777-4040",
+    "email": "lucia.ferreira@email.com",
+    "dentista_id": 1
+}
+
+### Cadastrar cliente com dentista inexistente
+POST {{base}}/clientes
+Authorization: Bearer {{login.response.body.token}}
+Content-Type: application/json
+
+{
+    "nome": "Cliente Sem Dentista",
+    "cpf": "390.533.447-05",
+    "telefone": "(11) 90000-0000",
+    "email": "sem.dentista@email.com",
+    "dentista_id": 9999
+}
+
+### Listar clientes (CPF descriptografado e nome do dentista)
+GET {{base}}/clientes
+Authorization: Bearer {{login.response.body.token}}
+
+### Cadastrar agendamento
+POST {{base}}/agendamentos
+Authorization: Bearer {{login.response.body.token}}
+Content-Type: application/json
+
+{
+    "data_agendamento": "2026-10-20T15:30:00",
+    "descricao": "Retorno de avaliação",
+    "cliente_id": 1,
+    "dentista_id": 1
+}
+
+### Cadastrar agendamento sem data
+POST {{base}}/agendamentos
+Authorization: Bearer {{login.response.body.token}}
+Content-Type: application/json
+
+{
+    "descricao": "Sem data",
+    "cliente_id": 1,
+    "dentista_id": 1
+}
+
+### Listar agendamentos em ordem cronológica
+GET {{base}}/agendamentos
+Authorization: Bearer {{login.response.body.token}}
+
+### Logout (exige o token; rode por último para não invalidar as rotas acima)
+POST {{base}}/logout
+Authorization: Bearer {{login.response.body.token}}
