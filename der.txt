@@ -1,0 +1,35 @@
+DIAGRAMA ENTIDADE-RELACIONAMENTO (DER)
+
+Entidades fortes. Cada tabela tem a própria chave primária (id).
+A chave estrangeira não faz parte da chave primária.
+Relacionamento não identificador. Sem chave primária composta.
+
+USUARIO                         (não se liga às outras tabelas; só login)
+  id PK
+  nome, email, senha, criado_em
+
+DENTISTA
+  id PK
+  nome, cro, especialidade, telefone, email
+        |
+        | 1
+        |<---- N   CLIENTE
+        |           id PK
+        |           nome, cpf, telefone, email
+        |           dentista_id FK -> dentista.id
+        |
+        | 1
+        |<---- N   AGENDAMENTO
+                    id PK
+                    data_agendamento, descricao, status
+                    dentista_id FK -> dentista.id
+                    cliente_id  FK -> cliente.id
+
+CLIENTE 1 ----< N AGENDAMENTO
+
+Relacionamentos:
+- Um dentista atende vários clientes.
+- Um dentista possui vários agendamentos.
+- Um cliente possui vários agendamentos.
+
+As tabelas, as chaves e os 3 registros de cada tabela estão em banco.sql.

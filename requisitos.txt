@@ -1,0 +1,44 @@
+REQUISITOS FUNCIONAIS
+Sistema: Consultório odontológico
+
+Os requisitos funcionais descrevem o que o sistema deve fazer.
+
+[RF01] Autenticar usuário (login)
+- O sistema valida e-mail e senha.
+- Se faltar e-mail ou senha, o login não é aceito.
+- Se os dados estiverem errados, informa que usuário ou senha são inválidos.
+- Se estiver correto, devolve o token e o usuário (id, nome e e-mail).
+- Prioridade: Alta
+
+[RF02] Encerrar sessão (logout)
+- O usuário logado pode sair.
+- A sessão é encerrada e o navegador apaga o token.
+- Prioridade: Média
+
+[RF03] Cadastrar dentista
+- Cadastra nome, CRO, especialidade, telefone e e-mail.
+- Prioridade: Alta
+
+[RF04] Listar e buscar dentistas
+- Lista todos os dentistas.
+- Se o usuário informar um termo, mostra só os que batem no nome, no CRO ou na especialidade.
+- Prioridade: Alta
+
+[RF05] Cadastrar cliente
+- Cadastra nome, CPF, telefone e e-mail.
+- O cliente precisa estar ligado a um dentista que já existe.
+- Prioridade: Alta
+
+[RF06] Listar clientes
+- Mostra os clientes com o CPF legível e o nome do dentista responsável.
+- Prioridade: Alta
+
+[RF07] Cadastrar agendamento
+- Informa data, cliente, dentista e descrição.
+- Cliente e dentista precisam existir.
+- Prioridade: Alta
+
+[RF08] Listar agendamentos
+- Mostra os agendamentos da data mais antiga para a mais nova.
+- Traz os dados do cliente e do dentista.
+- Prioridade: Alta
